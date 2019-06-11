@@ -16,32 +16,12 @@ public plugin_init() {
 public Ham_PlayerTakeDamage(id, iInflictor, iAttacker, Float:flDamage, iBits) {
     if( !is_user_alive(id) ) return HAM_IGNORED;
 
-    set_task(1.0, "healing", id);
+    new health = get_user_health(id);
+    if( health >= 45 ) {
+        return HAM_IGNORED
+    }
+
+    set_user_health(id, 45);
 
     return HAM_IGNORED
 }
-
-public healing(id) {
-    if(!is_user_alive(id) ) {
-        return;
-    }
-
-    new health = get_user_health(id);
-
-    if( health >= 45 ) {
-        return;
-    }
-
-    if( health + 5 >= 45 ) {
-        health = 45
-    }
-    else {
-        health += 5;
-    }
-
-    set_user_health(id, health);
-    set_task(1.0, "healing", id);
-
-}
-
-
